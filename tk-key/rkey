@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-
-#rkey - simple CLI password generator
-#Released under Apache 2.0
-#Tekronet 2021 <tekronet.github.io>
-
-require "optparse"

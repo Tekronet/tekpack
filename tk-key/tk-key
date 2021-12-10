@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+#tk-key - simple CLI password generator from Tekpack
+#Released under Apache 2.0
+#Tekronet 2021 <tekronet.github.io>
+
+require "optparse"
+require "colored"
+
+#characters
+characters = ["qwertyuiopasdfghjklzxcvbnm"]
+
+pass_length = 10
+
+arr_index = 0
+
+final_password = ""
+
+begin
+	OptionParser.new do |parser|
+
+		parser.on("-v", "--version") do |v|
+			puts "Tekpack key 1.0\nSimple password generator\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
+			exit!
+		end
+
+		parser.on("-h", "--help") do |v|
+			puts "USAGE:".bold
+			puts "	tk-key [options]"
+			puts "OPTIONS:".bold
+			puts "	-h, --help - Print this help info"
+			puts "	-v, --version - Print version information"
+			puts "	-u, --uppercase - Enable uppercase characters"
+			puts "	-n, --numbers - Enable numbers characters"
+			puts "	-s, --special - Enable special characters (%, #, etc.)"
+			puts "	-l, --length <LENGTH> - Change password lenght (default: 10)"
+			exit!
+		end
+
+		parser.on("-u", "--uppercase") do |v|
+			characters[(arr_index + 1)] = "QWERTYUIOPASDFGHJKLZXCVBNM"
+			arr_index = arr_index + 1
+		end
+
+		parser.on("-n", "--numbers") do |v|
+			characters[(arr_index + 1)] = "1234567890"
+			arr_index = arr_index + 1
+		end
+
+		parser.on("-s", "--special") do |v|
+			characters[(arr_index + 1)] = ",./;'[]\<>?:!@#$%^&*()_+"
+			arr_index = arr_index + 1
+		end
+
+		parser.on("-l", "--length CHARACTER_COUNT") do |char_count|
+			pass_length = char_count.to_i
+		end
+		
+	end.parse!
+
+	
+	for a in 1..pass_length do
+		selected_section = characters.sample
+		random_char = selected_section.chars.to_a.sample
+		final_password << random_char
+	end
+		puts final_password
+		
+	rescue
+		puts "Invalid argument. For more information type 'tk-key --help'"
+end
