@@ -1,0 +1,91 @@
+#!/usr/bin/env ruby
+
+#Gnu Cat alternative written in ruby
+#Released under Apache 2.0 license
+#Tekronet 2021
+
+require 'optparse'
+require 'colored'
+
+provided_non_file_arg = false
+return_info = false
+text_color = "white"
+
+#configuring cli options
+begin
+	OptionParser.new do |parser|
+		
+		parser.on("-v", "--version") do |v| 
+			puts "Dog 1.1\nDisplay text files in diffrent colors and count their words and lines!\nTekronet 2021 <tekronet.github.io>"
+			provided_non_file_arg = true
+		end
+		
+		parser.on("-h", "--help") do |v|
+			puts "USAGE:".bold
+			puts "    dog <FILE> [FLAGS]"
+			puts "FLAGS:".bold
+			puts "    -h, --help - Print this help information"
+			puts "    -v, --version - Print version information"
+			puts "    -c, --color [COLOR] - Change output color"
+			puts "    -i, --info - Print lines, number of words and characters of input file"
+			provided_non_file_arg = true
+		end
+
+		parser.on("-c", "--color COLOR") do |color|
+			text_color= color
+		end
+
+		parser.on("-i", "--info") do |v|
+			return_info = true
+		end
+	end.parse!
+
+	rescue 
+		puts "Invalid argument. Type 'dog --help' for more information"
+		provided_non_file_arg = true
+end
+
+#reading file
+if ARGV.empty? && provided_non_file_arg == false
+	puts "Please provide an input file. For more help type 'dog --help'"
+	exit!
+elsif !provided_non_file_arg
+
+	begin
+		filename = ARGV.pop
+		file = File.open(filename)
+		file_content = file.read
+	rescue
+		puts "File not found!"
+		wrong_file = true
+	end
+
+	#checking color and printing file content
+	if !return_info && !wrong_file
+		case text_color
+			when "red"
+				puts file_content.red
+			when "blue"
+				puts file_content.blue
+			when "black"
+				puts file_content.black
+			when "green"
+				puts file_content.green
+			when "yellow"
+				puts file_content.yellow
+			when "magenta"
+				puts file_content.magenta
+			when "cyan"
+				puts file_content.cyan
+			else
+				puts file_content.white
+		end
+	#file info				
+	elsif !wrong_file
+		words_count = file_content.split(/[^[[:word:]]]+/)
+		
+		puts "Characters: " + file_content.length.to_s.bold
+		puts "Words: " + words_count.length.to_s.bold
+		puts "Lines: " + file_content.lines.count.to_s.bold	
+	end
+end
