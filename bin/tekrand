@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+#tekrand - random number generator from Tekpack
+#Released under Apache 2.0
+#Tekronet 2021 <tekronet.github.io>
+
+require "optparse"
+require "colored"
+
+begin
+	OptionParser.new do |parser|
+
+		parser.on("-v", "--version") do |v|
+			puts "Tekrand 1.0\nRandom number generator from Tekpack\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
+		end
+		
+	end.parse!
+end

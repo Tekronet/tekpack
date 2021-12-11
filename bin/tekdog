@@ -16,13 +16,13 @@ begin
 	OptionParser.new do |parser|
 		
 		parser.on("-v", "--version") do |v| 
-			puts "Tekpack dog 1.1\nDisplay text files in diffrent colors and read file info\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
+			puts "Tekdog 1.1\nDisplay text files in diffrent colors and read file info\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
 			provided_non_file_arg = true
 		end
 		
 		parser.on("-h", "--help") do |v|
 			puts "USAGE:".bold
-			puts "    dog <FILE> [FLAGS]"
+			puts "   	tekdog  <FILE> [FLAGS]"
 			puts "FLAGS:".bold
 			puts "    -h, --help - Print this help information"
 			puts "    -v, --version - Print version information"
@@ -41,13 +41,13 @@ begin
 	end.parse!
 
 	rescue 
-		puts "Invalid argument. Type 'tk-dog --help' for more information"
+		puts "Invalid argument. Type 'tekdog --help' for more information"
 		provided_non_file_arg = true
 end
 
 #reading file
 if ARGV.empty? && provided_non_file_arg == false
-	puts "Please provide an input file. For more help type 'dog --help'"
+	puts "Please provide an input file. For more help type 'tekdog --help'"
 	exit!
 elsif !provided_non_file_arg
 
