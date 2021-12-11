@@ -25,7 +25,7 @@ begin
 
 		parser.on("-h", "--help") do |v|
 			puts "USAGE:".bold
-			puts "	tk-key [options]"
+			puts "	tekpass [options]"
 			puts "OPTIONS:".bold
 			puts "	-h, --help - Print this help info"
 			puts "	-v, --version - Print version information"
