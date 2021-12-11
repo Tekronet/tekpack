@@ -6,21 +6,20 @@
 
 require "optparse"
 require "colored"
+require "clipboard"
 
 #characters
 characters = ["qwertyuiopasdfghjklzxcvbnm"]
 
 pass_length = 10
-
 arr_index = 0
-
 final_password = ""
 
 begin
 	OptionParser.new do |parser|
 
 		parser.on("-v", "--version") do |v|
-			puts "Tekpack key 1.0\nSimple password generator\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
+			puts "Tekpass 1.0\nSimple password generator from Tekpack\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
 			exit!
 		end
 
@@ -64,8 +63,16 @@ begin
 		random_char = selected_section.chars.to_a.sample
 		final_password << random_char
 	end
-		puts final_password
-		
+	
+	puts "Generated password: " + final_password
+	print "Copy to clipboard? (y/n)"
+	choice = gets
+
+	if choice == "y\n"
+		Clipboard.copy(final_password)
+		puts "Copied to clipboard!"
+	end
+
 	rescue
-		puts "Invalid argument. For more information type 'tk-key --help'"
+		puts "Invalid command. Type 'tekpass --help' for more information."
 end
