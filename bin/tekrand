@@ -7,12 +7,52 @@
 require "optparse"
 require "colored"
 
+how_many = 1
+
 begin
 	OptionParser.new do |parser|
 
 		parser.on("-v", "--version") do |v|
 			puts "Tekrand 1.0\nRandom number generator from Tekpack\nReleased under Apache 2.0\nTekronet 2021 <tekronet.github.io>"
+			exit!
+		end
+
+		parser.on("-h", "--help") do |v|
+			puts "USAGE: ".bold
+			puts "	tekrand [options]"
+			puts "OPTIONS:".bold
+			puts "	-h, --help - Print this help information"
+			puts "	-v, --version - Print version information"
+			puts "	-m, --min <NUMBER> - Set minimal number (required)"
+			puts "	-M, --max <NUMBER> - Set maximum number (required)"
+			puts "	-c, --count <COUNT> - How many numbers to generate"
+			exit!
+		end
+
+		parser.on("-m", "--min MIN") do |min|
+			$minimal_number = min.to_i
+		end
+
+		parser.on("-M", "--max MAX") do |max|
+			$maximum_number = max.to_i
+		end
+
+		parser.on("-c", "--count COUNT") do |count|
+			how_many = count.to_i
 		end
 		
 	end.parse!
+	
+	begin
+		for a in 1..how_many do
+			range = Range.new($minimal_number, $maximum_number)
+			puts rand(range)
+		end
+	
+	rescue
+		puts "Please provide minimum and maximum number. Type 'tekrand --help' for more info."
+	end
+
+rescue
+	puts "Invalid argument. Type 'tekrand --help' form more info."
 end
